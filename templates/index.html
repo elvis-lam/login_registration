@@ -1,0 +1,217 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login and Registration</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+    <!-- Link to jQuery  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="display-4">Login and Registration</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- REGISTRATION COLUMN  -->
+            <!-- ========================================== -->
+            <div class="col">
+                <h2>Register here!</h2>
+                <form action="/register" method="post">
+                    {% with errors = get_flashed_messages(category_filter=["existing"]) %}
+                            {% if errors %}
+                            {% for msg in errors %}
+                            <p class="error">{{ msg }}</p>
+                            {% endfor %}
+                            {% endif %}
+                            {% endwith %}
+
+                    <!-- first name: letters only, at least 2 characters -->
+                    <div class="form-group">
+                        <label class="labels" for="fName">First name:</label>
+                        <div>
+                            {% with errors = get_flashed_messages(category_filter=["f-name"]) %}
+                            {% if errors %}
+                            {% for msg in errors %}
+                            <p class="error">{{ msg }}</p>
+                            {% endfor %}
+                            {% endif %}
+                            {% endwith %}
+                        </div>
+
+                        <input name="first_name" type="text" class="form-control" id="fName">
+                    </div>
+
+                    <!-- last name: letters only, at least 2 characters -->
+                    <div class="form-group">
+                        <label class="labels" for="lName">Last name:</label>
+                        <div>
+                            {% with errors = get_flashed_messages(category_filter=["l-name"]) %}
+                            {% if errors %}
+                            {% for msg in errors %}
+                            <p class="error">{{ msg }}</p>
+                            {% endfor %}
+                            {% endif %}
+                            {% endwith %}
+                        </div>
+
+                        <input name="last_name" type="text" class="form-control" id="lName">
+                    </div>
+
+                    <!-- email: email format, not already in database -->
+                    <div class="form-group">
+                        <label class="labels" for="new-email">Email:</label>
+                        <div>
+                            {% with errors = get_flashed_messages(category_filter=["new-email"]) %}
+                            {% if errors %}
+                            {% for msg in errors %}
+                            <p class="error">{{ msg }}</p>
+                            {% endfor %}
+                            {% endif %}
+                            {% endwith %}
+                        </div>
+
+
+                        <input name="email" type="text" class="form-control" id="new-email">
+                    </div>
+
+                    <!-- password: at least 8 characters -->
+                    <div class="form-group">
+                        <label class="labels" for="new-password">Password:</label>
+                        <div>
+                            {% with errors = get_flashed_messages(category_filter=["new-password"]) %}
+                            {% if errors %}
+                            {% for msg in errors %}
+                            <p class="error">{{ msg }}</p>
+                            {% endfor %}
+                            {% endif %}
+                            {% endwith %}
+                        </div>
+
+                        <input name="password_hash" type="text" class="form-control" id="password">
+                    </div>
+
+                    <!-- confirm password: matches password -->
+                    <div class="form-group">
+                        <label class="labels" for="confirm-password">Confirm password:</label>
+                        <div>
+                            {% with errors = get_flashed_messages(category_filter=["confirm-password"]) %}
+                            {% if errors %}
+                            {% for msg in errors %}
+                            <p class="error">{{ msg }}</p>
+                            {% endfor %}
+                            {% endif %}
+                            {% endwith %}
+                        </div>
+
+                        <input name="confirm_password" type="text" class="form-control" id="confirm-pass">
+                    </div>
+
+                    <button type="submit" class="btn btn-success" id="bttnSubmit">Register!</button>
+                </form>
+            </div>
+
+            <!-- LOGIN COLUMN  -->
+            <!-- ========================================== -->
+            <div class="col">
+                <h2>Login here!</h2>
+                <form action="/login" method="post">
+
+                    <!-- email -->
+                    <div class="form-group">
+                        <label class="labels" for="login-email">Email:</label>
+                        <div>
+                            {% with errors = get_flashed_messages(category_filter=["login-email"]) %}
+                            {% if errors %}
+                            {% for msg in errors %}
+                            <p class="error">{{ msg }}</p>
+                            {% endfor %}
+                            {% endif %}
+                            {% endwith %}
+                        </div>
+
+                        <input name="email" type="text" class="form-control" id="login-email">
+                    </div>
+                    <!-- password -->
+                    <div class="form-group">
+                        <label class="labels" for="password">Password:</label>
+                        <div>
+                            {% with errors = get_flashed_messages(category_filter=["login-password"]) %}
+                            {% if errors %}
+                            {% for msg in errors %}
+                            <p class="error">{{ msg }}</p>
+                            {% endfor %}
+                            {% endif %}
+                            {% endwith %}
+                        </div>
+                        <input name="login_password" type="text" class="form-control" id="password">
+                    </div>
+
+                    <button type="submit" class="btn btn-success" id="bttnSubmit">Login!</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- BOOTSTRAP'S: Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
